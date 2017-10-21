@@ -4,5 +4,7 @@ module Carrierwave::Cropsize
     # Carrierwave uploader for images
     mount_uploader :image, ImageUploader
 
+    has_many :crops, class_name: "Carrierwave::Cropsize::ImageCrop", inverse_of: :image
+
   end
 end
