@@ -12,3 +12,17 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+group :development, :test do
+
+  gem 'rspec-rails', '~> 3.5.0.beta'
+  gem 'capybara-screenshot'
+  gem 'factory_girl'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'appraisal'
+  gem 'simplecov'
+  gem 'simplecov-json'
+  gem "generator_spec"
+end

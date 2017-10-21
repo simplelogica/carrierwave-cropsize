@@ -1,4 +1,5 @@
 require "carrierwave/cropsize/engine"
+require "carrierwave/cropsize/configuration"
 
 module Carrierwave
   module Cropsize
