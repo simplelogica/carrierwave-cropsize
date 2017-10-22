@@ -22,6 +22,25 @@ describe Carrierwave::Cropsize::ImageCropSizeUploader do
 
     end
 
+    context 'when replacing the original image' do
 
+      let(:aspect_ratio) { "1400:700" }
+      let(:image2_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/vertical.jpg") }
+
+      it "should change the dimensions" do
+        # This should create the crop size from the default iamge (the horizontal one)
+        crop_size
+
+        # Here we check the dimensions. These should be the same as in the "uploading horizontal image" spec
+        expect(::MiniMagick::Image.open(crop_size.crop.file.path)[:dimensions]).to eq [crop_width, crop_width*960/1920]
+
+        image.image = File.open(image2_path)
+        image.save
+
+        # Here we check again the dimensions. But these should be the same as in the "uploading vertical image" spec
+        expect(::MiniMagick::Image.open(crop_size.crop.file.path)[:dimensions]).to eq [crop_width, 150]
+      end
+
+    end
 
 end

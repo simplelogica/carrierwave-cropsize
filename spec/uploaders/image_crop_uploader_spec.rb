@@ -63,8 +63,6 @@ describe Carrierwave::Cropsize::ImageCropUploader do
         # 1900 x 1200
         let(:image_path) { "spec/uploaders/assets/vertical.jpg" }
 
-        let(:crop) { image.crops.create!(aspect_ratio: aspect_ratio, crop: image.image.file ) }
-
         context 'creating a horizontal crop' do
 
           let(:aspect_ratio) { "1400:700" }
@@ -105,8 +103,6 @@ describe Carrierwave::Cropsize::ImageCropUploader do
         # 1900 x 1200
         let(:image_path) { "spec/uploaders/assets/small-horizontal.jpg" }
 
-        let(:crop) { image.crops.create!(aspect_ratio: aspect_ratio, crop: image.image.file ) }
-
         context 'creating a horizontal crop' do
 
           let(:aspect_ratio) { "1600:610" }
@@ -120,6 +116,28 @@ describe Carrierwave::Cropsize::ImageCropUploader do
       end
     end
 
+    context 'when replacing the original image' do
+
+      let(:aspect_ratio) { "1400:700" }
+      let(:image2_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/vertical.jpg") }
+
+      it "should change the dimensions" do
+        # This should create the crop from the default iamge (the horizontal one)
+        crop
+
+        # Here we check the dimensions. These should be the same as in the "uploading horizontal image" spec
+        expect(crop.width).to eq 1920
+        expect(crop.height).to eq 960
+
+        image.image = File.open(image2_path)
+        image.save
+
+        # Here we check again the dimensions. But these should be the same as in the "uploading vertical image" spec
+        expect(crop.width).to eq 1200
+        expect(crop.height).to eq 600
+      end
+
+    end
 
 
 end

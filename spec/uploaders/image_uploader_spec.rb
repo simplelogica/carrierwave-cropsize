@@ -17,6 +17,21 @@ describe Carrierwave::Cropsize::ImageUploader do
       end
     end
 
+    context 'when replacing the file' do
+
+      let(:image2_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/vertical.jpg") }
+
+      it "should change the dimensions" do
+        expect(image.image.file.extension).to eq "jpg"
+
+        image.image = File.open(image2_path)
+        image.save
+
+        expect(::MiniMagick::Image.open(image.image.file.path)[:dimensions]).to eq [1200, 1920]
+      end
+
+    end
+
 
 
 end
