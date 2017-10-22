@@ -5,6 +5,8 @@ module Carrierwave::Cropsize
 
     mount_uploader :crop, ImageCropUploader
 
+    validates :aspect_ratio, presence: true
+
     ##
     # These method calculates the ratios that must be multiplied by the
     # dimensions of the crop being uploaded in order to get a crop with the
