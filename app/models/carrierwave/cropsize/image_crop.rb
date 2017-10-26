@@ -7,6 +7,10 @@ module Carrierwave::Cropsize
 
     validates :aspect_ratio, presence: true
 
+    # This accessor is set in image uploader update_crops method
+    # We need it in order to keep the same extension in the image and crops
+    attr_accessor :extra_extension
+
     ##
     # These method calculates the ratios that must be multiplied by the
     # dimensions of the crop being uploaded in order to get a crop with the

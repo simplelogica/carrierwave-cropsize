@@ -20,6 +20,7 @@ describe Carrierwave::Cropsize::ImageUploader do
     context 'when replacing the file' do
 
       let(:image2_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/vertical.jpg") }
+      let(:image_png_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/horizontal.png") }
 
       it "should change the dimensions" do
         expect(image.image.file.extension).to eq "jpg"
@@ -28,6 +29,24 @@ describe Carrierwave::Cropsize::ImageUploader do
         image.save
 
         expect(::MiniMagick::Image.open(image.image.file.path)[:dimensions]).to eq [1200, 1920]
+      end
+
+
+      it "should change the extension" do
+        expect(image.image.file.extension).to eq "jpg"
+
+        image.image = File.open(image_png_path)
+        image.save
+
+        expect(image.image.file.extension).to eq "png"
+      end
+
+    end
+
+    context "regarding the path" do
+
+      it "should be predicatble" do
+        expect(image.image.url).to eq "/uploads/image/#{image.id}/image.jpg"
       end
 
     end

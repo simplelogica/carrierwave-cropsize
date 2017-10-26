@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'uri'
 
 describe Carrierwave::Cropsize::ImageCropUploader do
 
@@ -139,5 +139,49 @@ describe Carrierwave::Cropsize::ImageCropUploader do
 
     end
 
+    context "regarding extensions" do
+      let(:image_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/horizontal.jpg") }
+      let(:image2_path) { File.join(Carrierwave::Cropsize::Engine.root, "spec/uploaders/assets/horizontal.png") }
 
+      let(:image) { Carrierwave::Cropsize::Image.create! image: File.open(image_path) }
+      let(:image2) { Carrierwave::Cropsize::Image.create! image: File.open(image2_path) }
+
+      let(:aspect_ratio) { "200:300" }
+
+      let!(:crop) { image.crops.create!(aspect_ratio: aspect_ratio, crop: image.image ) }
+      let(:crop2) { image2.crops.create!(aspect_ratio: aspect_ratio, crop: image2.image ) }
+
+      it "should have the same extension as the image" do
+        expect(crop.crop.file.extension).to eq "jpg"
+        expect(crop2.crop.file.extension).to eq "png"
+      end
+
+      it "should change the crop extension when image changes" do
+        image.image =  File.open(image2_path)
+        image.save
+        expect(crop.reload.crop.file.extension).to eq "png"
+        image.crops.each do |cropi|
+          expect(cropi.reload.crop.file.extension).to eq "png"
+        end
+        expect(image.image.file.extension).to eq "png"
+      end
+
+      it "should set the properly extension even when try to asign different one to a crop" do
+        expect(crop.crop.file.extension).to eq "jpg"
+
+        crop.crop = File.open(image2_path)
+        crop.save
+
+        expect(crop.crop.file.extension).to eq "jpg"
+      end
+    end
+
+
+    context "regarding the path" do
+
+      it "should be predicatble" do
+        expect(URI.unescape(crop.crop.url)).to eq "/uploads/image/#{image.id}/crops/#{aspect_ratio}/image.jpg"
+      end
+
+    end
 end
