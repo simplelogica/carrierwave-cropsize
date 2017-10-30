@@ -1,5 +1,7 @@
 require 'carrierwave'
 require 'mini_magick'
+require 'sidekiq'
+require 'sidekiq-status'
 
 module Carrierwave
   module Cropsize
