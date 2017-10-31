@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030160002) do
+ActiveRecord::Schema.define(version: 20171031005528) do
 
   create_table "carrierwave_cropsize_image_crop_sizes", force: :cascade do |t|
     t.integer  "image_crop_id"
@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(version: 20171030160002) do
     t.integer  "height"
     t.string   "aspect_ratio"
     t.integer  "image_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "upload_job_id"
     t.index ["image_id"], name: "index_carrierwave_cropsize_image_crops_on_image_id"
   end
 
