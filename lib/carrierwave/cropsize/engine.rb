@@ -1,4 +1,5 @@
 require 'carrierwave'
+require 'carrierwave/base64'
 require 'mini_magick'
 require 'sidekiq'
 require 'sidekiq-status'

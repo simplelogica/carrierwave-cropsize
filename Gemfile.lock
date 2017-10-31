@@ -3,6 +3,7 @@ PATH
   specs:
     carrierwave-cropsize (0.1.0)
       carrierwave (~> 1.2.1)
+      carrierwave-base64 (~> 2.3.1)
       mini_magick (~> 4.8.0)
       rails (~> 5.0.1)
       sidekiq (>= 4.1.0, < 4.3.0)
@@ -70,6 +71,8 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.3.5)
+      carrierwave (>= 0.8.0)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crass (1.0.2)
