@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 5.0.1"
   s.add_dependency "carrierwave", "~> 1.2.1"
+  s.add_dependency 'carrierwave-base64','~> 2.3.1'
+
   s.add_dependency "mini_magick", "~> 4.8.0"
   s.add_dependency 'sidekiq', '>= 4.1.0', '< 4.3.0'
   s.add_dependency 'sidekiq-status', '>= 0.6.0', '< 0.7.0'
