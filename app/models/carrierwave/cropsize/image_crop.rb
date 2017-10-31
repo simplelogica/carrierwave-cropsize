@@ -65,7 +65,7 @@ module Carrierwave::Cropsize
     # update the crop and update its job id column
     def async_upload_base64_crop
       if async_crop_base64_remote_url
-        job_id = Carrierwave::Cropsize:ImageCropUploadWorker.perform_async self.id, async_crop_base64_remote_url
+        job_id = Carrierwave::Cropsize::ImageCropUploadWorker.perform_async self.id, async_crop_base64_remote_url
         # we update the column avoiding any rails callback
         update_column :upload_job_id, job_id
         # and then store it in our model

@@ -3,7 +3,7 @@ module Carrierwave::Cropsize
   ##
   # This worker will peform the actual upload of the crop and keep
   # status of how it all goes.
-  class Base64CropUploadWorker
+  class ImageCropUploadWorker
     include Sidekiq::Worker
     include Sidekiq::Status::Worker
     sidekiq_options :queue => :crops
