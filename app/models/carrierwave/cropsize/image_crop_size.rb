@@ -9,5 +9,9 @@ module Carrierwave::Cropsize
     # We need it in order to keep the same extension in the image and crops
     attr_accessor :extra_extension
 
+    def self.crop_size_url image_id, aspect_ratio, width, extension
+      "uploads/image/#{image_id}/crops/#{aspect_ratio}/#{width}/image#{extension}"
+    end
+
   end
 end

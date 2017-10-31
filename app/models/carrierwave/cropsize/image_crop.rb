@@ -50,5 +50,9 @@ module Carrierwave::Cropsize
       end
     end
 
+    def self.crop_url image_id, aspect_ratio, extension
+      "uploads/image/#{image_id}/crops/#{aspect_ratio}/image#{extension}"
+    end
+
   end
 end
