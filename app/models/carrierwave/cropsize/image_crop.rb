@@ -12,6 +12,12 @@ module Carrierwave::Cropsize
     attr_accessor :extra_extension
 
     ##
+    # This accessor and the following after_save will allow us to modify the crop in an async way
+    attr_accessor :async_crop_base64_remote_url
+
+    after_save :async_upload_base64_crop
+
+    ##
     # These method calculates the ratios that must be multiplied by the
     # dimensions of the crop being uploaded in order to get a crop with the
     # desired aspect ratio from the orginal image.
@@ -52,6 +58,19 @@ module Carrierwave::Cropsize
 
     def self.crop_url image_id, aspect_ratio, extension
       "uploads/image/#{image_id}/crops/#{aspect_ratio}/image#{extension}"
+    end
+
+    ##
+    # When we receive an async url of a base64 file then we create a worker to
+    # update the crop and update its job id column
+    def async_upload_base64_crop
+      if async_crop_base64_remote_url
+        job_id = Carrierwave::Cropsize:ImageCropUploadWorker.perform_async self.id, async_crop_base64_remote_url
+        # we update the column avoiding any rails callback
+        update_column :upload_job_id, job_id
+        # and then store it in our model
+        self.upload_job_id = job_id
+      end
     end
 
   end
