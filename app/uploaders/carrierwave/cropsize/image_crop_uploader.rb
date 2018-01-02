@@ -21,7 +21,7 @@ module Carrierwave::Cropsize
       image_extension = if model.extra_extension.present?
           model.extra_extension
         elsif model.image && !model.image[:image].blank?
-          model.image[:image]
+          File.extname(model.image[:image])
         else
           File.extname(original_filename) rescue nil
         end
