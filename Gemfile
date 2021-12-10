@@ -15,7 +15,7 @@ gemspec
 
 group :development, :test do
 
-  gem 'rspec-rails', '~> 3.5.0.beta'
+  gem 'rspec-rails', '~> 5.0.2'
   gem 'capybara-screenshot'
   gem 'factory_girl'
   gem 'capybara'
