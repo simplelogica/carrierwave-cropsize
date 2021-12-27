@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 6.1.4.1"
+  s.add_dependency "rails", ">= 5.0.0", '< 7.0'
   s.add_dependency "carrierwave", "~> 1.2.1"
   s.add_dependency 'carrierwave-base64','~> 2.3.1'
 
@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'sidekiq', '>= 4.1.0', '< 4.3.0'
   s.add_dependency 'sidekiq-status', '>= 0.6.0', '< 0.7.0'
 
-  s.add_development_dependency "sqlite3", '~> 1.4'
+  s.add_development_dependency "sqlite3", '~> 1.3'
 end

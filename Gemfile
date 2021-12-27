@@ -15,7 +15,7 @@ gemspec
 
 group :development, :test do
 
-  gem 'rspec-rails', '~> 5.0.2'
+  gem 'rspec-rails'
   gem 'capybara-screenshot'
   gem 'factory_girl'
   gem 'capybara'
@@ -26,5 +26,6 @@ group :development, :test do
   gem 'simplecov-json'
   gem "generator_spec"
   gem 'pry'
+  gem 'appraisal'
 
 end
