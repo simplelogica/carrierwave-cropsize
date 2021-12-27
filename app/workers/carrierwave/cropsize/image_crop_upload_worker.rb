@@ -22,7 +22,11 @@ module Carrierwave::Cropsize
       at 10, "Receiving the new crop."
       base64_file = open(base64_url)
       at 55, "Storing the new crop at S3."
-      crop.update_attributes(crop: base64_file.read)
+      if Gem::Version.new(Rails.version) > Gem::Version.new('6.0')
+        crop.update(crop: base64_file.read)
+      else
+        crop.update_attributes(crop: base64_file.read)
+      end
       store html_replacement: "<img src='#{crop.crop_url}?#{Time.now.to_i}' />"
       at 100, "crop uploaded and processed."
       crop.update_column(:upload_job_id, nil)

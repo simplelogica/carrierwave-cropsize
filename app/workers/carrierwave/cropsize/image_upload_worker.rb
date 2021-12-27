@@ -19,7 +19,11 @@ module Carrierwave::Cropsize
         at 0, "Configuring"
         image = Image.find image_id
         at 10, "Uploading to S3."
-        image.update_attributes(remote_image_url: image_url)
+        if Gem::Version.new(Rails.version) > Gem::Version.new('6.0')
+          image.update(remote_image_url: image_url)
+        else
+          image.update_attributes(remote_image_url: image_url)
+        end
         at 100, "Image uploaded and processed."
         image.update_column(:upload_job_id, nil)
         store html_replacement: "<a href='#{image.image_url}'>#{image.image_url}</a>"
