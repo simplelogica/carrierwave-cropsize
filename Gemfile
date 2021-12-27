@@ -25,4 +25,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'simplecov-json'
   gem "generator_spec"
+  gem 'pry'
+
 end
