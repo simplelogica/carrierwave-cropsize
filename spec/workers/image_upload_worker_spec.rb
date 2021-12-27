@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Carrierwave::Cropsize::ImageUploadWorker do
 
   let(:image) { Carrierwave::Cropsize::Image.create!  }
-  let(:image_url) { "http://img.youtube.com/vi/bQvSYT_z4xE/0.jpg" }
+  let(:image_url) { "https://picsum.photos/480/360" }
 
   context 'concerning the sidekiq jobs' do
 
@@ -34,6 +34,8 @@ describe Carrierwave::Cropsize::ImageUploadWorker do
 
     it 'should keep the same sizes' do
       image.reload
+      # If this spec fails without any reason (nothing has changed in the way
+      # the image is updated) check that the image url is not returning 404
       expect(image.image?).to be true
       expect(::MiniMagick::Image.open(image.image.file.path)[:dimensions]).to eq [480, 360]
     end
