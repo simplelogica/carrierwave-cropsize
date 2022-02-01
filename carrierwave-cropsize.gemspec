@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave-base64','~> 2.3.1'
 
   s.add_dependency "mini_magick", "~> 4.8.0"
-  s.add_dependency 'sidekiq', '>= 4.1.0', '< 4.3.0'
-  s.add_dependency 'sidekiq-status', '>= 0.6.0', '< 0.7.0'
+  s.add_dependency 'sidekiq', '>= 4.1.0'
+  s.add_dependency 'sidekiq-status', '>= 0.6.0'
 
   s.add_development_dependency "sqlite3", '~> 1.3'
 end
